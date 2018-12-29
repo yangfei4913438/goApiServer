@@ -34,7 +34,7 @@ func OneMonth(year int, month int) (int, time.Duration, error) {
 		return 31, OneDay * 31, nil
 	case 2:
 		if (year % 4) != 0 {
-			//年份不能被4整除，就是平年，二月份为28天
+			// 年份不能被4整除，就是平年，二月份为28天
 			return 28, OneDay * 28, nil
 		} else {
 			// 年份可以被4整除，就是闰年，二月份为29天
