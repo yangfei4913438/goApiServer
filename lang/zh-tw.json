@@ -1,0 +1,20 @@
+{
+  "routers": {
+    "filter": {
+      "ip": {
+        "info_01": "用戶的IP地址:",
+        "err_02": "無法獲取用戶的IP地址:("
+      }
+    }
+  },
+  "models": {
+    "users": {
+      "select_info_01": "現在開始查詢用戶的信息。查詢ID:"
+    }
+  },
+  "controllers": {
+    "tips": {
+      "return_info_01": "返回給客戶端的數據:"
+    }
+  }
+}

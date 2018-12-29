@@ -1,0 +1,20 @@
+{
+  "routers": {
+    "filter": {
+      "ip": {
+        "info_01": "User's IP address:",
+        "err_02": "Unable to get the user's IP address: ("
+      }
+    }
+  },
+  "models": {
+    "users": {
+      "select_info_01": "Now start querying user information. Query ID:"
+    }
+  },
+  "controllers": {
+    "tips": {
+      "return_info_01": "Data returned to the client:"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "routers": {
+    "filter": {
+      "ip": {
+        "info_01": "用户的IP地址:",
+        "err_02": "无法获取用户的IP地址:("
+      }
+    }
+  },
+  "models": {
+    "users": {
+      "select_info_01": "现在开始查询用户的信息。查询ID:"
+    }
+  },
+  "controllers": {
+    "tips": {
+      "return_info_01": "返回给客户端的数据:"
+    }
+  }
+}

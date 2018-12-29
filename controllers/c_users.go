@@ -3,11 +3,16 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/astaxie/beego"
+	"testapi/lang"
 	"testapi/models"
 )
 
 func (api *API) SelectUser() {
 	var send interface{}
+	// 获取用户语言
+	lg := api.Ctx.Request.Header.Get("Accept-Language")
+	// 获取语言文件
+	currLang := lang.GetLang(lg)
 
 	// 捕获get传参 /test/api/v1/user?id=1
 	id, err := api.GetInt64("id")
@@ -19,7 +24,7 @@ func (api *API) SelectUser() {
 		send = &SendMessage{101, "服务器获取参数出错!"}
 	} else {
 		// 调用查询方法
-		user, err2 := models.SelectUser(id)
+		user, err2 := models.SelectUser(id, currLang)
 		if err2 != nil {
 			beego.Error("服务器内部方法出错:", err2)
 			// 自定义HTTP状态码
@@ -39,11 +44,17 @@ func (api *API) SelectUser() {
 
 	//返回数据
 	res, _ := json.Marshal(send)
-	beego.Trace("返回给客户端的数据:", string(res))
+	//多语言打印：返回给客户端的数据:
+	beego.Trace(currLang.Controllers.Tips.ReturnInfo01, string(res))
 	api.ServeJSON()
 }
 
 func (api *API) AddUser() {
+	// 获取用户语言
+	lg := api.Ctx.Request.Header.Get("Accept-Language")
+	// 获取语言文件
+	currLang := lang.GetLang(lg)
+
 	// 接收结构体
 	var receive *models.ReceiveUser
 	// 消息对象
@@ -75,5 +86,7 @@ func (api *API) AddUser() {
 	api.Data["json"] = send
 
 	//返回数据
+	res, _ := json.Marshal(send)
+	beego.Trace(currLang.Controllers.Tips.ReturnInfo01, string(res))
 	api.ServeJSON()
 }

@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 	"testapi/dbs"
+	"testapi/lang"
 	"testapi/tools"
 )
 
@@ -30,8 +31,9 @@ type ReturnUserProducts struct {
 }
 
 // 查询用户
-func SelectUser(id int64) (*User, error) {
-	beego.Trace("开始查询用户信息, 查询ID:", id)
+func SelectUser(id int64, langFile *lang.JsonData) (*User, error) {
+	//多语言打印：现在开始查询用户的信息。查询ID:
+	beego.Trace(langFile.Models.Users.SelectInfo01, id)
 
 	// 定义redis的key, id转string类型
 	redisKey := "test:user_" + strconv.FormatInt(id, 10)

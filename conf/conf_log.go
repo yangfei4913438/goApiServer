@@ -4,29 +4,18 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	"os"
-	"path/filepath"
+	"testapi/tools"
 )
 
 func init() {
-	setlog()
+	setLog()
 }
 
-//用于获取项目根目录的绝对路径
-func GetRootPath() string {
-	// 获取项目的上级目录路径
-	FileDir, err := filepath.Abs(filepath.Dir(os.Args[0]))
-	if err != nil {
-		panic(err)
-	}
-	return FileDir + "/"
-}
-
-func setlog() {
+func setLog() {
 	//日志配置
 	var cfg = map[string]interface{}{
 		//保存的文件名
-		"filename": GetRootPath() + beego.AppConfig.String("log_filename"),
+		"filename": tools.GetRootPath() + beego.AppConfig.String("log_filename"),
 		//level 日志保存的时候的级别，默认是 Trace 级别, 数字越小打印的范围越小，日志级别越高
 		//0-emergency, 1-[emergency、alert]，2-[emergency、alert、critical，error也不打印],
 		//3-[不打印warning、notice、debug以及info日志], 生产环境打印级别设置为3

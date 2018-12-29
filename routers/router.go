@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"testapi/controllers"
+	"testapi/lang"
 )
 
 func init() {
@@ -28,6 +29,8 @@ func init() {
 
 	// 过滤器函数，检查IP
 	var checkIP = func(ctx *context.Context) {
+		lg := ctx.Request.Header.Get("Accept-Language")
+		res := lang.GetLang(lg)
 		ip := ctx.Request.Header.Get("X-Forwarded-For")
 		if ip == "" {
 			ip = ctx.Request.Header.Get("X-real-ip")
@@ -36,9 +39,9 @@ func init() {
 			ip = ctx.Input.IP()
 		}
 		if ip != "" {
-			beego.Trace("用户的IP地址:", ip)
+			beego.Trace(res.Routers.Filter.Ip.Info01, ip)
 		} else {
-			beego.Trace("无法获取用户IP:(")
+			beego.Trace(res.Routers.Filter.Ip.Err01)
 		}
 	}
 	// 启用过滤器
