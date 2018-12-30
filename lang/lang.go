@@ -1,6 +1,7 @@
 package lang
 
 import (
+	"strings"
 	"testapi/tools"
 )
 
@@ -16,7 +17,7 @@ func GetLang(lang string) {
 	var filePath string
 
 	// 指定JSON语言文件
-	switch lang {
+	switch strings.ToLower(lang) {
 	case "zh-cn":
 		// 匹配简体中文
 		filePath = tools.GetRootPath() + "lang/zh-cn.json"
