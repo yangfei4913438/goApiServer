@@ -31,11 +31,14 @@ func setLog() {
 		"maxsize": beego.AppConfig.DefaultInt("log_maxsize", 0), //0也是默认值的一种写法
 	}
 	// 转化日志为字符串
-	log_conf, _ := json.Marshal(cfg)
-	// 支持命令行显示日志
-	beego.SetLogger(logs.AdapterConsole, "console")
-	// 支持日志打印到文件中
-	beego.SetLogger(logs.AdapterFile, string(log_conf))
+	if logConf, err := json.Marshal(cfg); err != nil {
+		beego.Error(err.Error())
+	} else {
+		// 支持日志打印到文件中【控制台显示默认支持，无需额外配置】
+		if err := beego.SetLogger(logs.AdapterFile, string(logConf)); err != nil {
+			beego.Error(err.Error())
+		}
+	}
 }
 
 /*
