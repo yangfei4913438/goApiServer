@@ -14,7 +14,7 @@ func init() {
 			beego.NSNamespace(
 				"/v1",
 				//测试接口
-				beego.NSRouter("/default", &controllers.API{}, "get:Welcome"),
+				beego.NSRouter("/", &controllers.API{}, "get:Hello"),
 				// 查询用户
 				beego.NSRouter("/user", &controllers.API{}, "get:SelectUser"),
 				// 新增用户
