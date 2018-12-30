@@ -4,7 +4,8 @@
       "ip": {
         "info_01": "User's IP address:",
         "err_02": "Unable to get the user's IP address: ("
-      }
+      },
+      "token": "The requested resource does not allow access!"
     }
   },
   "models": {

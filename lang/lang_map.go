@@ -8,6 +8,7 @@ type JsonData struct {
 				Info01 string `json:"info_01"`
 				Err01  string `json:"err_01"`
 			} `json:"ip"`
+			Token string `json:"token"`
 		} `json:"filter"`
 	} `json:"routers"`
 	Models struct {
