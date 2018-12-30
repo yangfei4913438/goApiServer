@@ -9,7 +9,8 @@
   },
   "models": {
     "users": {
-      "select_info_01": "Now start querying user information. Query ID:"
+      "select_info_01": "Now start querying user information. Query ID:",
+      "select_info_02": "Query user information operation is complete."
     }
   },
   "controllers": {

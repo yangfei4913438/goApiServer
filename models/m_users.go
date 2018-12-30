@@ -11,17 +11,15 @@ import (
 
 // 用户表结构体,用于接收数据库查询出来的对象，数据类型和数据库尽量保持一致
 type User struct {
-	Id    int64  `json:"id" db:"id"`
-	Name  string `json:"name" db:"name"`
-	Age   int64  `json:"age" db:"age"`
-	Email string `json:"email" db:"email"`
+	Id          int64 `json:"id" db:"id"`
+	ReceiveUser       // 直接放struct对象，就等于直接把这个struct的属性放到这里，不是新增一个对象，而是新增三个属性（针对当前操作）
 }
 
 // 添加用户时，接收用户传值的对象
 type ReceiveUser struct {
-	Name  string `json:"name"`
-	Age   int64  `json:"age"`
-	Email string `json:"email"`
+	Name  string `json:"name" db:"name"`
+	Age   int64  `json:"age" db:"age"`
+	Email string `json:"email" db:"email"`
 }
 
 // 返回给用户的分页对象
@@ -31,9 +29,11 @@ type ReturnUserProducts struct {
 }
 
 // 查询用户
-func SelectUser(id int64) (*User, error) {
-	//多语言打印：现在开始查询用户的信息。查询ID:
+func SelectUser(id int64) (resObj *User, resErr error) {
+	// 多语言打印：现在开始查询用户的信息。查询ID:
 	beego.Trace(lang.CurrLang.Models.Users.SelectInfo01, id)
+	// 多语言打印：查询用户信息操作已完成。
+	defer beego.Trace(lang.CurrLang.Models.Users.SelectInfo02)
 
 	// 定义redis的key, id转string类型
 	redisKey := "test:user_" + strconv.FormatInt(id, 10)
@@ -57,9 +57,9 @@ func SelectUser(id int64) (*User, error) {
 					beego.Trace("查询结果为空值!")
 
 					// 将空值添加到缓存, 有效期1小时
-					if err := dbs.RedisDB.SetJSON(redisKey, nil, tools.OneHour); err != nil {
-						beego.Error(err)
-						return nil, err
+					if err1 := dbs.RedisDB.SetJSON(redisKey, nil, tools.OneHour); err1 != nil {
+						beego.Error(err1)
+						return nil, err1
 					}
 					// 返回空值
 					return nil, nil
@@ -72,14 +72,15 @@ func SelectUser(id int64) (*User, error) {
 			}
 
 			// 将结果添加到缓存
-			if err := dbs.RedisDB.SetJSON(redisKey, &user, tools.OneDay); err != nil {
-				beego.Error(err)
-				return nil, err
+			if err2 := dbs.RedisDB.SetJSON(redisKey, &user, tools.OneDay); err2 != nil {
+				// 打印错误日志
+				beego.Error(err2)
+				// 返回错误信息
+				return nil, err2
 			}
 
 			// 返回结果给用户
 			return &user, nil
-
 		}
 	}
 
@@ -115,13 +116,25 @@ func AddUser(user *ReceiveUser) error {
 		// 打印错误日志
 		beego.Error(err2)
 		// 回滚
-		tx.Rollback()
+		err3 := tx.Rollback()
+		if err3 != nil {
+			// 打印错误日志
+			beego.Error(err3)
+			// 返回错误信息
+			return err3
+		}
 		// 返回错误信息
 		return err2
 	}
 
 	//没有问题了，最后一起提交。
-	tx.Commit()
+	err4 := tx.Commit()
+	if err4 != nil {
+		// 打印错误日志
+		beego.Error(err4)
+		// 返回错误信息
+		return err4
+	}
 
 	// 正常情况返回空值
 	return nil

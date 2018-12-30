@@ -13,6 +13,7 @@ type JsonData struct {
 	Models struct {
 		Users struct {
 			SelectInfo01 string `json:"select_info_01"`
+			SelectInfo02 string `json:"select_info_02"`
 		} `json:"users"`
 	} `json:"models"`
 	Controllers struct {

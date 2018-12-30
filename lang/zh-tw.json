@@ -9,7 +9,8 @@
   },
   "models": {
     "users": {
-      "select_info_01": "現在開始查詢用戶的信息。查詢ID:"
+      "select_info_01": "現在開始查詢用戶的信息。查詢ID:",
+      "select_info_02": "查詢用戶信息操作已完成。"
     }
   },
   "controllers": {

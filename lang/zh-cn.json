@@ -9,7 +9,8 @@
   },
   "models": {
     "users": {
-      "select_info_01": "现在开始查询用户的信息。查询ID:"
+      "select_info_01": "现在开始查询用户的信息。查询ID:",
+      "select_info_02": "查询用户信息操作已完成。"
     }
   },
   "controllers": {
