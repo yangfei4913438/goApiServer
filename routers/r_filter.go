@@ -7,26 +7,7 @@ import (
 	"testapi/lang"
 )
 
-func init() {
-	// api路由,一级
-	ns := beego.NewNamespace("/test",
-		// api路由,二级
-		beego.NSNamespace("/api",
-			//api路由,三级
-			beego.NSNamespace(
-				"/v1",
-				//测试接口
-				beego.NSRouter("/default", &controllers.API{}, "get:Welcome"),
-				// 查询用户
-				beego.NSRouter("/user", &controllers.API{}, "get:SelectUser"),
-				// 新增用户
-				beego.NSRouter("/user", &controllers.API{}, "put:AddUser"),
-			),
-		),
-	)
-	// 注册自定义namespace
-	beego.AddNamespace(ns)
-
+func RouterFilter() {
 	// 过滤器函数，检查操作
 	var check = func(ctx *context.Context) {
 		// 语言处理
@@ -50,9 +31,9 @@ func init() {
 			//定义返回对象
 			var send controllers.SendMessage
 			// 自定义错误码
-			send.Errno = 403
+			send.Code = 403
 			// 自定义错误消息
-			send.Errmsg = lang.CurrLang.Routers.Filter.Token
+			send.Message = lang.CurrLang.Routers.Filter.Token
 			// 返回数据给用户
 			if err := ctx.Output.JSON(&send, true, false); err != nil {
 				// 打印错误信息。

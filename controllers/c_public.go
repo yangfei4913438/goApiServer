@@ -9,6 +9,6 @@ type API struct {
 }
 
 type SendMessage struct {
-	Errno  int    `json:"errno"`
-	Errmsg string `json:"errmsg"`
+	Code    int    `json:"code"`
+	Message string `json:"message"`
 }
