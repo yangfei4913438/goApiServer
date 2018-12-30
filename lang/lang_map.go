@@ -18,8 +18,8 @@ type JsonData struct {
 		} `json:"users"`
 	} `json:"models"`
 	Controllers struct {
-		Tips struct {
+		Users struct {
 			ReturnInfo01 string `json:"return_info_01"`
-		} `json:"tips"`
+		} `json:"users"`
 	} `json:"controllers"`
 }

@@ -15,7 +15,7 @@
     }
   },
   "controllers": {
-    "tips": {
+    "users": {
       "return_info_01": "返回給客戶端的數據:"
     }
   }

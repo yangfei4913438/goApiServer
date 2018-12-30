@@ -15,7 +15,7 @@
     }
   },
   "controllers": {
-    "tips": {
+    "users": {
       "return_info_01": "返回给客户端的数据:"
     }
   }

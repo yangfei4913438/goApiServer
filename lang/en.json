@@ -15,7 +15,7 @@
     }
   },
   "controllers": {
-    "tips": {
+    "users": {
       "return_info_01": "Data returned to the client:"
     }
   }

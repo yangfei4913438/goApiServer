@@ -41,7 +41,7 @@ func (api *API) SelectUser() {
 	//返回数据
 	res, _ := json.Marshal(send)
 	//多语言打印：返回给客户端的数据:
-	beego.Trace(lang.CurrLang.Controllers.Tips.ReturnInfo01, string(res))
+	beego.Trace(lang.CurrLang.Controllers.Users.ReturnInfo01, string(res))
 	api.ServeJSON()
 }
 
@@ -78,6 +78,6 @@ func (api *API) AddUser() {
 
 	//返回数据
 	res, _ := json.Marshal(send)
-	beego.Trace(lang.CurrLang.Controllers.Tips.ReturnInfo01, string(res))
+	beego.Trace(lang.CurrLang.Controllers.Users.ReturnInfo01, string(res))
 	api.ServeJSON()
 }
