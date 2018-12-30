@@ -4,8 +4,11 @@ import (
 	"testapi/tools"
 )
 
-// 传入语言类型和key
-func GetLang(lang string) *JsonData {
+// 下面的函数被执行后，就可以通过这个全局变量，在全局获取语言数据
+var CurrLang *JsonData
+
+// 传入语言类型
+func GetLang(lang string) {
 	// 定义接收数据的对象变量
 	var res JsonData
 
@@ -28,6 +31,6 @@ func GetLang(lang string) *JsonData {
 	// 解析JSON语言文件
 	tools.ParseJsonFile(filePath, &res)
 
-	// 返回JSON数据
-	return &res
+	// 赋值给全局变量
+	CurrLang = &res
 }

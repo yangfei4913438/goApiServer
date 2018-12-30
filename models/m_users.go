@@ -31,9 +31,9 @@ type ReturnUserProducts struct {
 }
 
 // 查询用户
-func SelectUser(id int64, langFile *lang.JsonData) (*User, error) {
+func SelectUser(id int64) (*User, error) {
 	//多语言打印：现在开始查询用户的信息。查询ID:
-	beego.Trace(langFile.Models.Users.SelectInfo01, id)
+	beego.Trace(lang.CurrLang.Models.Users.SelectInfo01, id)
 
 	// 定义redis的key, id转string类型
 	redisKey := "test:user_" + strconv.FormatInt(id, 10)
