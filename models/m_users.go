@@ -95,15 +95,6 @@ func SelectUser(id int64) (resObj *User, resErr error) {
 
 // 新增用户信息
 func AddUser(user *ReceiveUser) error {
-	// DML操作，开启事务
-	tx, err := dbs.MysqlDB.Begin()
-	if err != nil {
-		// 打印错误日志
-		beego.Error(err)
-		// 返回错误信息
-		return err
-	}
-
 	// 预处理SQL语句
 	addUserSql := "insert into users (name, age, email) values (?, ?, ?)"
 
@@ -111,29 +102,12 @@ func AddUser(user *ReceiveUser) error {
 	beego.Debug("[sql]: "+addUserSql, user.Name, user.Age, user.Email)
 
 	// 执行sql
-	_, err2 := tx.Exec(addUserSql, user.Name, user.Age, user.Email)
-	if err2 != nil {
+	_, err := dbs.MysqlDB.Exec(addUserSql, user.Name, user.Age, user.Email)
+	if err != nil {
 		// 打印错误日志
-		beego.Error(err2)
-		// 回滚
-		err3 := tx.Rollback()
-		if err3 != nil {
-			// 打印错误日志
-			beego.Error(err3)
-			// 返回错误信息
-			return err3
-		}
+		beego.Error(err)
 		// 返回错误信息
-		return err2
-	}
-
-	//没有问题了，最后一起提交。
-	err4 := tx.Commit()
-	if err4 != nil {
-		// 打印错误日志
-		beego.Error(err4)
-		// 返回错误信息
-		return err4
+		return err
 	}
 
 	// 正常情况返回空值
@@ -142,7 +116,8 @@ func AddUser(user *ReceiveUser) error {
 
 // 修改用户
 func UpdateUser(user *User) error {
-	// DML操作，开启事务
+	// 开启事务, 事务功能的demo
+	// 正常情况下，如果只有单条SQL语句执行，请不要使用事务！这里只是展示事务的用法，所以才会出现事务。
 	tx, err := dbs.MysqlDB.Begin()
 	if err != nil {
 		// 打印错误日志
@@ -162,14 +137,23 @@ func UpdateUser(user *User) error {
 	if err2 != nil {
 		// 打印错误日志
 		beego.Error(err2)
-		// 回滚
-		tx.Rollback()
+		// 回滚, 这里失败了，也是要打印的
+		rollErr := tx.Rollback()
+		if rollErr != nil {
+			// 这里的错误不需要返回了，因为不属于主要错误，返回主要错误，让查询的时候，自然就会查到这里了。
+			beego.Error(rollErr.Error())
+		}
 		// 返回错误信息
 		return err2
 	}
 
 	//没有问题了，最后一起提交。
-	tx.Commit()
+	cmtErr := tx.Commit()
+	if cmtErr != nil {
+		beego.Error(cmtErr.Error())
+		// 提交出错肯定是要返回错误信息的。
+		return cmtErr
+	}
 
 	// 正常情况返回空值
 	return nil
@@ -177,15 +161,6 @@ func UpdateUser(user *User) error {
 
 // 删除用户
 func DelUser(id int64) error {
-	// DML操作，开启事务
-	tx, err := dbs.MysqlDB.Begin()
-	if err != nil {
-		// 打印错误日志
-		beego.Error(err)
-		// 返回错误信息
-		return err
-	}
-
 	// 预处理SQL语句
 	updateUserSql := "delete users where id=?"
 
@@ -193,18 +168,13 @@ func DelUser(id int64) error {
 	beego.Debug("[sql]: "+updateUserSql, id)
 
 	// 执行sql
-	_, err2 := tx.Exec(updateUserSql, id)
-	if err2 != nil {
+	_, err := dbs.MysqlDB.Exec(updateUserSql, id)
+	if err != nil {
 		// 打印错误日志
-		beego.Error(err2)
-		// 回滚
-		tx.Rollback()
+		beego.Error(err)
 		// 返回错误信息
-		return err2
+		return err
 	}
-
-	//没有问题了，最后一起提交。
-	tx.Commit()
 
 	// 正常情况返回空值
 	return nil

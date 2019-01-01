@@ -1,6 +1,7 @@
 package lang
 
 import (
+	"github.com/astaxie/beego"
 	"strings"
 	"testapi/tools"
 )
@@ -10,6 +11,12 @@ var CurrLang *JsonData
 
 // 传入语言类型
 func GetLang(lang string) {
+	// 获取绝对路径
+	rootPath, err := tools.GetRootPath()
+	if err != nil {
+		beego.Error(err.Error())
+	}
+
 	// 定义接收数据的对象变量
 	var res JsonData
 
@@ -20,13 +27,13 @@ func GetLang(lang string) {
 	switch strings.ToLower(lang) {
 	case "zh-cn":
 		// 匹配简体中文
-		filePath = tools.GetRootPath() + "lang/zh-cn.json"
+		filePath = *rootPath + "lang/zh-cn.json"
 	case "zh-tw":
 		// 匹配繁体中文
-		filePath = tools.GetRootPath() + "lang/zh-tw.json"
+		filePath = *rootPath + "lang/zh-tw.json"
 	default:
 		// 默认匹配英文
-		filePath = tools.GetRootPath() + "lang/en.json"
+		filePath = *rootPath + "lang/en.json"
 	}
 
 	// 解析JSON语言文件

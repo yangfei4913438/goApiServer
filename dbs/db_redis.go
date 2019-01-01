@@ -41,7 +41,10 @@ func CleanRedis(prefixes ...string) error {
 	for _, key := range keys {
 		for _, prefix := range prefixes {
 			if strings.HasPrefix(key, prefix) {
-				RedisDB.Del(key)
+				if err2 := RedisDB.Del(key); err2 != nil {
+					beego.Error(err2)
+					return err2
+				}
 				// 删除完成了，就不用继续检查了，换下个KEY
 				break
 			}

@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	"testapi/controllers"
+	"testapi/dbs"
 	"testapi/lang"
 )
 
@@ -21,8 +22,13 @@ func RouterFilter() {
 		}
 		// 说明：当前的语言处理是根据，用户的请求信息决定的。你也可以根据具体的业务需求来决定，在什么位置设置语言。
 
-		// token处理
+		// token处理; token分为三个部分，其中两个部分分别是用户ID和token, 剩余的是干扰字符，当然也可以是简单的由ID和token组成。
 		token := ctx.Request.Header.Get("X-Access-Token")
+		var tok string
+		if err := dbs.RedisDB.GetJSON("test:user_1", &tok); err != nil {
+			beego.Error(err)
+		}
+
 		// 这里是测试token匹配，实际需要根据用户ID读取redis里的token来进行匹配
 		if token != "test" {
 			// HTTP错误码 403 请求的资源不允许访问。就是说没有权限。

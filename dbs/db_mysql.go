@@ -37,6 +37,7 @@ func initMysql() {
 	db, err := sqlx.Connect("mysql", mysqlSource)
 	if err != nil {
 		beego.Critical("Connect to Mysql, Error: " + err.Error())
+		// panic适用于最核心的组件，没有不行的东西。如果这个出错了，系统就必须panic
 		panic("Connect to Mysql, Error: " + err.Error())
 	}
 
@@ -56,17 +57,18 @@ func initMysql() {
 	} else {
 		beego.Info("Connect Mysql Server(" + mysqlHost + ":" + mysqlPort + ") to successful!")
 	}
-
 }
 
 //关闭MySQL连接
 func (mt *mysqlType) CloseMysql() {
-	mt.DB.Close()
-	beego.Debug("[db closed] mysql")
+	if err := mt.DB.Close(); err != nil {
+		beego.Error(err.Error())
+	}
+	beego.Info("[db closed] mysql")
 }
 
 // 查询表有多少行数据
-func (mt *mysqlType) TableCount(tableName string) (int64, error) {
+func (mt *mysqlType) TableCount(tableName string) (*int64, error) {
 
 	// 组合查询sql
 	sql := "select count(1) from " + tableName
@@ -76,7 +78,8 @@ func (mt *mysqlType) TableCount(tableName string) (int64, error) {
 	err := mt.Get(&num, sql)
 	if err != nil {
 		beego.Error(err)
+		return nil, err
 	}
 	beego.Debug("[out]: ", num)
-	return num, nil
+	return &num, nil
 }
