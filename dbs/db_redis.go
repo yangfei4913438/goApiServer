@@ -29,7 +29,7 @@ func initRedis() {
 }
 
 // 删掉包含指定前缀的key
-func CleanRedis(prefixes ...string) error {
+func CleanRedisPrefix(prefix string) error {
 	// 获取所有的key
 	keys, err := RedisDB.Keys()
 	if err != nil {
@@ -39,14 +39,12 @@ func CleanRedis(prefixes ...string) error {
 
 	// 遍历这些key，删掉包含指定前缀的key
 	for _, key := range keys {
-		for _, prefix := range prefixes {
-			if strings.HasPrefix(key, prefix) {
-				if err2 := RedisDB.Del(key); err2 != nil {
-					beego.Error(err2)
-					return err2
-				}
-				// 删除完成了，就不用继续检查了，换下个KEY
-				break
+		// 匹配前缀
+		if strings.HasPrefix(key, prefix) {
+			// 匹配成功的，调用删除方法，执行删除操作
+			if err2 := RedisDB.Del(key); err2 != nil {
+				beego.Error(err2)
+				return err2
 			}
 		}
 	}

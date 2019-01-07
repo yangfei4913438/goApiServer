@@ -15,10 +15,16 @@ func init() {
 				"/v1",
 				//测试接口
 				beego.NSRouter("/", &controllers.API{}, "get:Hello"),
+				// 查询用户, 分页
+				beego.NSRouter("/users", &controllers.API{}, "get:SelectUsers"),
 				// 查询用户
 				beego.NSRouter("/user", &controllers.API{}, "get:SelectUser"),
 				// 新增用户
 				beego.NSRouter("/user", &controllers.API{}, "put:AddUser"),
+				// 更新用户
+				beego.NSRouter("/user", &controllers.API{}, "post:UpdateUser"),
+				// 删除用户
+				beego.NSRouter("/user", &controllers.API{}, "delete:DelUser"),
 			),
 		),
 	)

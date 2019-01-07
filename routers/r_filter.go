@@ -24,7 +24,7 @@ func RouterFilter() {
 
 		// token处理; token分为三个部分，其中两个部分分别是用户ID和token, 剩余的是干扰字符，当然也可以是简单的由ID和token组成。
 		token := ctx.Request.Header.Get("X-Access-Token")
-		var tok string
+		var tok interface{}
 		if err := dbs.RedisDB.GetJSON("test:user_1", &tok); err != nil {
 			beego.Error(err)
 		}
