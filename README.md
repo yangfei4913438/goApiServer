@@ -72,8 +72,8 @@ PUT 127.0.0.1:6666/test/api/v1/user
 
 |   参数   | 类型   | 必填  | 说明    |
 |   ----  | ------ | ---- | ------- |
-| code    | String | Y    | 用户姓名 |
-| message | Int    | Y    | 用户年龄 |
+| code    | String | Y    | 状态码   |
+| message | Int    | Y    | 状态信息 |
 
 - 响应demo
 
@@ -180,8 +180,8 @@ POST 127.0.0.1:6666/test/api/v1/user
 
 |   参数   | 类型   | 必填  | 说明    |
 |   ----  | ------ | ---- | ------- |
-| code    | String | Y    | 用户姓名 |
-| message | Int    | Y    | 用户年龄 |
+| code    | String | Y    | 状态码   |
+| message | Int    | Y    | 状态信息 |
 
 - 响应demo
 
@@ -218,8 +218,8 @@ DELETE 127.0.0.1:6666/test/api/v1/user
 
 |   参数   | 类型   | 必填  | 说明    |
 |   ----  | ------ | ---- | ------- |
-| code    | String | Y    | 用户姓名 |
-| message | Int    | Y    | 用户年龄 |
+| code    | String | Y    | 状态码   |
+| message | Int    | Y    | 状态信息 |
 
 - 响应demo
 
