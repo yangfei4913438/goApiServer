@@ -46,9 +46,6 @@ func SelectUsers(spage, snumber string) (*ReturnUsers, error) {
 		return nil, err02
 	}
 
-	// 定义redis的key, id转string类型
-	redisKey := fmt.Sprintf("test:users_number%v_size%v", page, number)
-
 	// 小于1都是不合法的, 强制转换为最小的1
 	if page < 1 {
 		page = 1
@@ -56,6 +53,9 @@ func SelectUsers(spage, snumber string) (*ReturnUsers, error) {
 	if number < 1 {
 		number = 1
 	}
+
+	// 定义redis的key, id转string类型
+	redisKey := fmt.Sprintf("test:users_number%v_size%v", page, number)
 
 	// 接收数据的变量
 	var users *ReturnUsers
