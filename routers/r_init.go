@@ -20,9 +20,9 @@ func init() {
 				// 查询用户
 				beego.NSRouter("/user", &controllers.API{}, "get:SelectUser"),
 				// 新增用户
-				beego.NSRouter("/user", &controllers.API{}, "put:AddUser"),
+				beego.NSRouter("/user", &controllers.API{}, "post:AddUser"),
 				// 更新用户
-				beego.NSRouter("/user", &controllers.API{}, "post:UpdateUser"),
+				beego.NSRouter("/user", &controllers.API{}, "put:UpdateUser"),
 				// 删除用户
 				beego.NSRouter("/user", &controllers.API{}, "delete:DelUser"),
 			),
