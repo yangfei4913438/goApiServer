@@ -3,8 +3,8 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/astaxie/beego"
-	"testapi/lang"
-	"testapi/models"
+	"goApiServer/lang"
+	"goApiServer/models"
 )
 
 func (api *API) SelectUsers() {

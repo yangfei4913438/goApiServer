@@ -2,8 +2,8 @@ package lang
 
 import (
 	"github.com/astaxie/beego"
+	"goApiServer/tools"
 	"strings"
-	"testapi/tools"
 )
 
 // 下面的函数被执行后，就可以通过这个全局变量，在全局获取语言数据

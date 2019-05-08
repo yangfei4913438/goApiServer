@@ -2,10 +2,10 @@ package main
 
 import (
 	"github.com/astaxie/beego"
+	_ "goApiServer/conf"
+	_ "goApiServer/dbs"
+	_ "goApiServer/routers"
 	"runtime"
-	_ "testapi/conf"
-	_ "testapi/dbs"
-	_ "testapi/routers"
 )
 
 func main() {

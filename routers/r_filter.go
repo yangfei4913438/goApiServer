@@ -3,9 +3,9 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
-	"testapi/controllers"
-	"testapi/dbs"
-	"testapi/lang"
+	"goApiServer/controllers"
+	"goApiServer/dbs"
+	"goApiServer/lang"
 )
 
 func RouterFilter() {

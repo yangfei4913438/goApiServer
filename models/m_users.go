@@ -4,11 +4,11 @@ import (
 	"errors"
 	"fmt"
 	"github.com/astaxie/beego"
+	"goApiServer/dbs"
+	"goApiServer/lang"
+	"goApiServer/tools"
 	"strconv"
 	"strings"
-	"testapi/dbs"
-	"testapi/lang"
-	"testapi/tools"
 	"time"
 )
 

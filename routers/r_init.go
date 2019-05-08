@@ -2,7 +2,7 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"testapi/controllers"
+	"goApiServer/controllers"
 )
 
 func init() {
