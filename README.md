@@ -1,4 +1,4 @@
-# Test API Server
+# Go Demo API Server
 
 | 版本号 | 说明 | 更新日期 | 更新者 |
 | ----- | --- | ---------- | ---- |
