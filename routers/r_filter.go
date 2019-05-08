@@ -24,7 +24,15 @@ func RouterFilter() {
 
 		// token处理; token分为三个部分，其中两个部分分别是用户ID和token, 剩余的是干扰字符，当然也可以是简单的由ID和token组成。
 		token := ctx.Request.Header.Get("X-Access-Token")
-		var tok interface{}
+		// 如果为空，表示没取到，那么就表示这个请求可能是 websocket 请求，我们到 url里面查询一下看看
+		if token == "" {
+			// 将 url 中查询到的值，赋值给变量
+			token = ctx.Input.Query("token")
+		}
+		// 说明：当前的规则下，只有这两种方式可以正确的获取到 token，其他情况不予考虑，如果还没有获取到，那么表示用户没有权限。
+
+		// 从 redis 中获取用户的 token。 这里只是一个 demo, 所以取出来的值，没有进行比对。
+		var tok string
 		if err := dbs.RedisDB.GetJSON("test:user_1", &tok); err != nil {
 			beego.Error(err)
 		}

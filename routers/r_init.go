@@ -28,8 +28,14 @@ func init() {
 			),
 		),
 	)
+
+	// websocket 路由
+	ws := beego.NewNamespace("/ws",
+		beego.NSRouter("/hi", &controllers.WebSocketController{}, "get:SayHi"),
+	)
+
 	// 注册自定义namespace
-	beego.AddNamespace(ns)
+	beego.AddNamespace(ns, ws)
 
 	// 执行过滤器
 	RouterFilter()
