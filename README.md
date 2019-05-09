@@ -45,6 +45,14 @@
 | x-access-token | test | Y | token，鉴别用户权限。因为是demo, 所以这里是写死的。 |
 | accept-language | zh-cn | N | 服务端有多语言支持的时候，会采用这里的语言返回数据。 |
 
+### websocket 请求url
+
+- 校验令牌，需要通过 url 传参的方式来传递
+
+```bash
+ws://127.0.0.1:7777/ws/hi?token=test
+```
+
 ### 新增用户
 
 - 方法和路由
