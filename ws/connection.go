@@ -2,6 +2,7 @@ package ws
 
 import (
 	"errors"
+	"github.com/astaxie/beego"
 	"github.com/gorilla/websocket"
 	"sync"
 )
@@ -44,7 +45,10 @@ func (conn *Connection) WriteMessage(data []byte) (err error) {
 // 关闭连接的Api
 func (conn *Connection) Close() {
 	// 线程安全的Close，可以并发多次调用也叫做可重入的Close
-	_ = conn.wsConn.Close()
+	err := conn.wsConn.Close()
+	if err != nil {
+		beego.Error(err)
+	}
 	conn.mutex.Lock()
 	if !conn.isClosed {
 		// 关闭chan,但是chan只能关闭一次
@@ -52,7 +56,6 @@ func (conn *Connection) Close() {
 		conn.isClosed = true
 	}
 	conn.mutex.Unlock()
-
 }
 
 // 初始化长连接
@@ -90,7 +93,6 @@ func (conn *Connection) readLoop() {
 			goto ERR
 		}
 	}
-
 ERR:
 	conn.Close()
 }
