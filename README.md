@@ -59,7 +59,7 @@ ws://127.0.0.1:7777/ws/hi?token=test
 - 方法和路由
 
 ```
-POST 127.0.0.1:6666/test/api/v1/user
+POST 127.0.0.1:7777/test/api/v1/user
 ```
 
 - 请求参数
@@ -101,7 +101,7 @@ POST 127.0.0.1:6666/test/api/v1/user
 - 方法和路由
 
 ```
-GET 127.0.0.1:6666/test/api/v1/user?id=1
+GET 127.0.0.1:7777/test/api/v1/user?id=1
 ```
 
 - 请求参数
@@ -135,7 +135,7 @@ GET 127.0.0.1:6666/test/api/v1/user?id=1
 - 方法和路由
 
 ```
-GET 127.0.0.1:6666/test/api/v1/users?page_num=1&page_size=5
+GET 127.0.0.1:7777/test/api/v1/users?page_num=1&page_size=5
 ```
 
 - 请求参数
@@ -166,7 +166,7 @@ GET 127.0.0.1:6666/test/api/v1/users?page_num=1&page_size=5
 - 方法和路由
 
 ```
-PUT 127.0.0.1:6666/test/api/v1/user
+PUT 127.0.0.1:7777/test/api/v1/user
 ```
 
 - 请求参数
@@ -209,7 +209,7 @@ PUT 127.0.0.1:6666/test/api/v1/user
 - 方法和路由
 
 ```
-DELETE 127.0.0.1:6666/test/api/v1/user
+DELETE 127.0.0.1:7777/test/api/v1/user
 ```
 
 - 请求参数
