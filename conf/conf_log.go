@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
-	"goApiServer/tools"
 )
 
 func init() {
@@ -12,16 +11,10 @@ func init() {
 }
 
 func setLog() {
-	// 获取绝对路径
-	rootPath, err := tools.GetRootPath()
-	if err != nil {
-		beego.Error(err.Error())
-	}
-
 	//日志配置
 	var cfg = map[string]interface{}{
 		//保存的文件名
-		"filename": *rootPath + beego.AppConfig.String("log_filename"),
+		"filename": beego.AppConfig.String("log_filename"),
 		//level 日志保存的时候的级别，默认是 Trace 级别, 数字越小打印的范围越小，日志级别越高
 		//0-emergency, 1-[emergency、alert]，2-[emergency、alert、critical，error也不打印],
 		//3-[不打印warning、notice、debug以及info日志], 生产环境打印级别设置为3
