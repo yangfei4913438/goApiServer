@@ -13,3 +13,6 @@ go get -u github.com/jmoiron/sqlx
 
 # Redis
 go get -u github.com/yangfei4913438/redis-full
+
+# websocket
+go get -u github.com/gorilla/websocket
