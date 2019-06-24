@@ -1,22 +1,13 @@
 {
-  "routers": {
-    "filter": {
-      "ip": {
-        "info_01": "User's IP address:",
-        "err_02": "Unable to get the user's IP address: ("
-      },
-      "token": "The requested resource does not allow access!"
-    }
-  },
-  "models": {
-    "users": {
-      "select_info_01": "Now start querying user information. Query ID:",
-      "select_info_02": "Query user information operation is complete."
-    }
-  },
-  "controllers": {
-    "users": {
-      "return_info_01": "Data returned to the client:"
-    }
+  "err_info": {
+    "err_500": "The server internal method is wrong!",
+    "err_1001": "The username has already been registered!",
+    "err_1002": "User does not exist!",
+    "err_1003": "Request parameter error!",
+    "err_1004": "The requested resource is busy, please try again later!",
+    "err_1005": "Authentication failed!",
+    "err_1006": "There are too many failed authentication attempts. Please try to login again after 5 minutes.",
+    "err_1007": "This account has been locked due to too many login errors and is currently in a secure lock period. Please try again later!",
+    "err_1008": "The verification code does not match!"
   }
 }

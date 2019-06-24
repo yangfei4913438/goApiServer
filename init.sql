@@ -1,14 +1,18 @@
 -- 创建数据库
-CREATE DATABASE `test` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+CREATE DATABASE test /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 
--- 创建表
-CREATE TABLE `test.users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `name` varchar(45) COLLATE utf8mb4_general_ci NOT NULL COMMENT '姓名',
-  `age` int(11) NOT NULL COMMENT '年龄',
-  `email` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '电子邮件',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `user_name` (`name`) USING BTREE,
-  KEY `user_age` (`age`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci
+-- 用户表
+CREATE TABLE IF NOT EXISTS users (
+  id int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  name varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户登录名，必须唯一，不可以重复。但是可以修改。',
+  password varchar(64) COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
+  email varchar(64) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '电子邮件',
+  language varchar(20) COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户语言',
+  role int(11) NOT NULL COMMENT '角色',
+  noticeEnable tinyint(4) NOT NULL COMMENT '是否提示',
+  noticeLevel int(11) NOT NULL COMMENT '邮件提示级别',
+  createTime int(11) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (id),
+  UNIQUE KEY id_UNIQUE (id),
+  UNIQUE KEY name_UNIQUE (name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

@@ -13,8 +13,10 @@ func init() {
 			//api路由,三级
 			beego.NSNamespace(
 				"/v1",
-				//测试接口
-				beego.NSRouter("/", &controllers.API{}, "get:Hello"),
+				// 用户登录
+				beego.NSRouter("/login", &controllers.API{}, "post:Login"),
+				// 用户登出
+				beego.NSRouter("/logout", &controllers.API{}, "get:Logout"),
 				// 查询用户, 分页
 				beego.NSRouter("/users", &controllers.API{}, "get:SelectUsers"),
 				// 查询用户

@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/gorilla/websocket"
+	"goApiServer/lang"
 	"goApiServer/ws"
 	"net/http"
 	"time"
@@ -15,6 +16,40 @@ type API struct {
 type SendMessage struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
+}
+
+// 函数被执行后，就可以通过这个全局变量，在全局获取语言数据
+func (api *API) GetLang() {
+	// 设置语言
+	var userLang string
+	// 语言处理
+	lg := api.Ctx.Request.Header.Get("Accept-Language")
+	if lg != "" {
+		// 语言设置不为空，就使用用户定义的语言
+		userLang = lg
+	} else {
+		// 否则就使用默认语言
+		userLang = beego.AppConfig.String("lang")
+	}
+
+	// 重新设置语言参数
+	lang.SetLang(userLang)
+
+	// IP处理
+	ip := api.Ctx.Request.Header.Get("X-Forwarded-For")
+	if ip == "" {
+		ip = api.Ctx.Request.Header.Get("X-real-ip")
+	}
+	if ip == "" {
+		ip = api.Ctx.Input.IP()
+	}
+	if ip != "" {
+		// 用户的IP地址:
+		beego.Trace("用户的IP地址:", ip)
+	} else {
+		// 无法获取用户的IP地址:(
+		beego.Trace("无法获取用户的IP地址!")
+	}
 }
 
 type WebSocketController struct {
