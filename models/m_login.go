@@ -310,7 +310,7 @@ func Login(user *structs.User) *structs.LoginReturn {
 
 			// 更新错误次数
 			errCnt += 1
-			if err := dbs.RedisDB.SetJSON(loginErrorKey, errCnt, tools.OneHour*1); err != nil {
+			if err := dbs.RedisDB.SetJSON(loginErrorKey, errCnt, tools.OneMinute*5); err != nil {
 				// 打印错误日志
 				beego.Error("Redis存储出错:", err)
 				return &structs.LoginReturn{
@@ -320,7 +320,7 @@ func Login(user *structs.User) *structs.LoginReturn {
 			}
 			// 记录当前用户已经存在验证码
 			userCheckKey := "user_captcha:" + user.Name
-			if err := dbs.RedisDB.SetJSON(userCheckKey, captchaId, tools.OneHour*1); err != nil {
+			if err := dbs.RedisDB.SetJSON(userCheckKey, captchaId, tools.OneMinute*5); err != nil {
 				// 打印错误日志
 				beego.Error("Redis存储出错:", err)
 				return &structs.LoginReturn{
@@ -339,7 +339,7 @@ func Login(user *structs.User) *structs.LoginReturn {
 		} else {
 			// 更新错误次数
 			errCnt += 1
-			if err := dbs.RedisDB.SetJSON(loginErrorKey, errCnt, tools.OneHour*1); err != nil {
+			if err := dbs.RedisDB.SetJSON(loginErrorKey, errCnt, tools.OneMinute*5); err != nil {
 				// 打印错误日志
 				beego.Error("Redis存储出错:", err)
 				return &structs.LoginReturn{
