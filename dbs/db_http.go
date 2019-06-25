@@ -2,10 +2,10 @@ package dbs
 
 import (
 	"github.com/astaxie/beego"
+	"goApiServer/tools"
 	"io"
 	"io/ioutil"
 	"net/http"
-	"rs-server/tools"
 	"strings"
 )
 
