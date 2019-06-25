@@ -8,7 +8,7 @@ type User struct {
 	Email        string `db:"email" json:"email"`               // 电子邮件
 	Language     string `db:"language" json:"language"`         // 用户语言
 	Role         int    `db:"role" json:"role"`                 // 用户角色编号 1 普通用户 9 管理员
-	NoticeEnable int    `db:"noticeEnable" json:"noticeEnable"` // 是否开启邮件通知 0 关闭 1 开启
+	NoticeEnable int    `db:"noticeEnable" json:"noticeEnable"` // 是否开启邮件通知 -1 关闭 1 开启
 	NoticeLevel  int    `db:"noticeLevel" json:"noticeLevel"`   // 邮件通知的级别
 	CreateTime   int64  `db:"createTime" json:"createTime"`     // 用户创建时间
 	CaptchaId    string `json:"captcha_id"`                     // 验证码的 ID
