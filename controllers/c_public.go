@@ -13,11 +13,6 @@ type API struct {
 	beego.Controller
 }
 
-type SendMessage struct {
-	Code    int    `json:"code"`
-	Message string `json:"message"`
-}
-
 // 函数被执行后，就可以通过这个全局变量，在全局获取语言数据
 func (api *API) GetLang() {
 	// 设置语言
