@@ -1,12 +1,15 @@
 package dbs
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"goApiServer/tools"
 	"io"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"strings"
+	"time"
 )
 
 type HTTP struct {
@@ -18,11 +21,27 @@ var Request *HTTP
 
 // 初始化 HTTP 类型
 func initHttp() {
-	// 初始化 HTTP 对象
-	Request = &HTTP{
-		BaseUrl: beego.AppConfig.String("base_url"),
+	// 取出IP和端口
+	baseUrl := beego.AppConfig.String("base_url")
+	testUrl := beego.AppConfig.String("test_url")
+	// 检测测试地址，是否可以连接
+	_, err := net.DialTimeout("tcp", testUrl, time.Second*3)
+	if err == nil {
+		// 初始化 HTTP 对象
+		Request = &HTTP{
+			BaseUrl: baseUrl,
+		}
+		beego.Info("Connect RS Core Server(" + testUrl + ") to successful!")
+	} else {
+		errInfo := "Connect RS Core Server(" + testUrl + ") to Failed!"
+		tips := strings.Repeat("#", len(errInfo)+45)
+		// 打印#符号，用作提示
+		fmt.Println("\n" + tips)
+		// 打印错误信息
+		beego.Error(errInfo + "\n")
+		// panic
+		panic(err)
 	}
-	beego.Info("Initialize the Http module successfully!")
 }
 
 type httpResult struct {
