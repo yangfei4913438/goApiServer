@@ -24,3 +24,10 @@ func RandStr() string {
 
 	return src[RandInt(len(src))]
 }
+
+// 生成指定范围内的随机数
+func RandRangeInt(min, max int) int {
+	rand.Seed(time.Now().UnixNano())
+	randNum := rand.Intn(max-min) + min
+	return randNum
+}

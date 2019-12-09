@@ -31,3 +31,9 @@ func Int64ToStr(x int64) string {
 func Float64ToStr(x float64) string {
 	return strconv.FormatFloat(x, 'f', 2, 64)
 }
+func IntToStr(x int) string {
+	return strconv.Itoa(x)
+}
+func StrToInt(x string) (int, error) {
+	return strconv.Atoi(x)
+}

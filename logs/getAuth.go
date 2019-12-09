@@ -1,19 +1,17 @@
-package tools
+package main
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"fmt"
 	"github.com/astaxie/beego"
 	"golang.org/x/crypto/scrypt"
 )
 
-//MySQL数据库分页计算，传入页数和每页数量，得到sql需要的分页参数
-func DBPage(number, size int) (limit int, offset int) {
-	// 每页的数量，就是限制
-	limit = size
-	// 页数-1，再乘以，每页的数量，就等于偏移量
-	offset = (number - 1) * size
-	// 返回
-	return limit, offset
+func StrMD5(str string) string {
+	h := md5.New()
+	h.Write([]byte(str))
+	return hex.EncodeToString(h.Sum(nil))
 }
 
 // 给密码加密，这里推荐使用用户ID。后面有空的时候我会更新一下。
@@ -32,3 +30,11 @@ func PasswordEncryption(username string, password string, createAt int64) (strin
 	// 返回加密数据, 因为上面得到的是一个哈希类型的数据，所以要进行格式化处理
 	return fmt.Sprintf("%x", dk), nil
 }
+
+func main() {
+	pass, _ := PasswordEncryption("admin", "123456", 1573639897)
+	fmt.Println(pass)
+}
+
+// 直接利用这种方式，可以直接计算出初始密码。 然后作为默认密码插入到数据库里面去。
+// 当然，我这里只是一个抛砖引玉，你完全可以用自己的方法去实现。

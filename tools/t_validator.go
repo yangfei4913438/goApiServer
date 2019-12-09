@@ -3,13 +3,54 @@ package tools
 import (
 	"github.com/astaxie/beego"
 	"goApiServer/structs"
+	"reflect"
 	"regexp"
 	"strings"
+	"time"
 )
 
 type validator struct{}
 
 var Validate validator
+
+// 验证是否为空
+func (v *validator) CheckBlank(val interface{}) bool {
+	value := reflect.ValueOf(val)
+	switch value.Kind() {
+	case reflect.String:
+		return value.Len() == 0
+	case reflect.Bool:
+		return !value.Bool()
+	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+		return value.Int() == 0
+	case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+		return value.Uint() == 0
+	case reflect.Float32, reflect.Float64:
+		return value.Float() == 0
+	case reflect.Interface, reflect.Ptr:
+		return value.IsNil()
+	}
+	return reflect.DeepEqual(value.Interface(), reflect.Zero(value.Type()).Interface())
+}
+
+// 验证是否为时间字符串
+func (v *validator) CheckTimeString(val string) bool {
+	_, err := time.Parse("2006-01-02 15:04:05", val)
+	if err != nil {
+		beego.Error("校验时间字符串出错:", err)
+		return false
+	}
+	return true
+}
+
+// 验证时区字符串
+func (v *validator) CheckZone(zone int) bool {
+	if zone < -12 || zone > 12 {
+		beego.Error("错误的时区值:", zone)
+		return false
+	}
+	return true
+}
 
 // 验证用户名的长度
 func (v *validator) CheckUserName(name string) bool {

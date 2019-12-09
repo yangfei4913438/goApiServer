@@ -16,3 +16,16 @@ CREATE TABLE IF NOT EXISTS users (
   UNIQUE KEY id_UNIQUE (id),
   UNIQUE KEY name_UNIQUE (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 系统配置表
+CREATE TABLE IF NOT EXISTS system_config (
+  id bigint(20) NOT NULL AUTO_INCREMENT,
+  op_log_expired int(11) NOT NULL DEFAULT '30' COMMENT '操作日志过期时间，单位: 天，默认30天',
+  PRIMARY KEY (id),
+  UNIQUE KEY op_log_expired_UNIQUE (op_log_expired)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 初始化系统配置
+INSERT INTO system_config(op_log_expired) VALUES (30);
+-- 提交
+commit;
