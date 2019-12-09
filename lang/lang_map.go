@@ -1,11 +1,11 @@
 package lang
 
 // JSON数据结构
-type JsonData struct {
+type jsonData struct {
 	ErrInfo ErrorInfo `json:"err_info"` // 错误信息
 }
 
-var CurrLang *JsonData
+var CurrLang *jsonData
 
 // 错误信息
 type ErrorInfo struct {

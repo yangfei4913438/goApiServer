@@ -2,6 +2,7 @@ package lang
 
 import (
 	"errors"
+	"github.com/astaxie/beego"
 	"goApiServer/tools"
 	"strings"
 )
@@ -31,16 +32,29 @@ type RRSError struct {
 
 var RRSErrorInfo RRSError
 
-var CNLang JsonData
-var TWLang JsonData
-var ENLang JsonData
+var cnLang jsonData
+var twLang jsonData
+var enLang jsonData
+
+// 获取环境变量
+var env = beego.AppConfig.String("runmode")
 
 func init() {
-	// 解析JSON语言文件, 这里统一加载后，每次请求接口，就不会再去加载了。
-	// 所有的语言文件，都在这里进行加载。
-	_ = tools.ParseJsonFile("lang/zh-cn.json", &CNLang)
-	_ = tools.ParseJsonFile("lang/zh-tw.json", &TWLang)
-	_ = tools.ParseJsonFile("lang/en.json", &ENLang)
+	if env == "prod" {
+		absPath, _ := tools.GetRootPath()
+		var path = *absPath
+		// 解析JSON语言文件, 这里统一加载后，每次请求接口，就不会再去加载了。
+		// 所有的语言文件，都在这里进行加载。
+		_ = tools.ParseJsonFile(path+"lang/zh-cn.json", &cnLang)
+		_ = tools.ParseJsonFile(path+"lang/zh-tw.json", &twLang)
+		_ = tools.ParseJsonFile(path+"lang/en.json", &enLang)
+	} else {
+		// 解析JSON语言文件, 这里统一加载后，每次请求接口，就不会再去加载了。
+		// 所有的语言文件，都在这里进行加载。
+		_ = tools.ParseJsonFile("lang/zh-cn.json", &cnLang)
+		_ = tools.ParseJsonFile("lang/zh-tw.json", &twLang)
+		_ = tools.ParseJsonFile("lang/en.json", &enLang)
+	}
 
 	// 默认设置为英文
 	SetLang("en")
@@ -49,11 +63,11 @@ func init() {
 func SetLang(lang string) {
 	switch strings.ToLower(lang) {
 	case "zh-cn":
-		CurrLang = &CNLang
+		CurrLang = &cnLang
 	case "zh-tw":
-		CurrLang = &TWLang
+		CurrLang = &twLang
 	default:
-		CurrLang = &ENLang
+		CurrLang = &enLang
 	}
 
 	// 系统错误
