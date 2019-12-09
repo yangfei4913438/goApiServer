@@ -2,7 +2,7 @@ package lang
 
 import (
 	"errors"
-	"rs-server/tools"
+	"goApiServer/tools"
 	"strings"
 )
 
