@@ -67,7 +67,7 @@ func GetTimeZoneCity(num int) string {
 	case -1:
 		return "Atlantic/Cape_Verde"
 	case -2:
-		return "America/Godthab"
+		return "Atlantic/South_Georgia"
 	case -3:
 		return "America/Bahia"
 	case -4:
@@ -77,11 +77,11 @@ func GetTimeZoneCity(num int) string {
 	case -6:
 		return "America/Belize"
 	case -7:
-		return "America/Vancouver"
+		return "America/Denver"
 	case -8:
-		return "America/Anchorage"
+		return "America/Dawson"
 	case -9:
-		return "America/Adak"
+		return "America/Nome"
 	case -10:
 		return "Pacific/Honolulu"
 	case -11:
@@ -90,11 +90,11 @@ func GetTimeZoneCity(num int) string {
 		fallthrough
 	case 12:
 		// 东西十二区是一回事
-		return "Pacific/Auckland"
+		return "Pacific/Tarawa"
 	case 11:
 		return "Pacific/Guadalcanal"
 	case 10:
-		return "Australia/Sydney"
+		return "Asia/Vladivostok"
 	case 9:
 		return "Asia/Tokyo"
 	case 8:
@@ -110,11 +110,11 @@ func GetTimeZoneCity(num int) string {
 	case 3:
 		return "Europe/Moscow"
 	case 2:
-		return "Europe/Berlin"
+		return "Europe/Bucharest"
 	case 1:
-		return "Europe/London"
+		return "Europe/Berlin"
 	case 0:
-		return "UTC"
+		return "Europe/London"
 	default:
 		// 其他的值，不是时区
 		return ""

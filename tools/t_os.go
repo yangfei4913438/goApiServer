@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 )
 
 //用于获取项目根目录的绝对路径
@@ -113,5 +114,81 @@ func syncToCOMS() error {
 		return err
 	} else {
 		return nil
+	}
+}
+
+// 使用shell方式从系统中获取时区【MAC,linux限定】
+func GetShellTimezone() (int, error) {
+	res, err := ExecBashShell("date -R")
+	if err != nil {
+		fmt.Println("【异常】服务器执行shell出错:", err)
+		return 500, err
+	}
+	// 去掉换行符
+	str := strings.Replace(res, "\n", "", 1)
+
+	// 分割字符串
+	arr := strings.Split(str, " ")
+
+	// 获取索引
+	index := len(arr) - 1
+
+	// 取到时区的字符串
+	str = arr[index]
+
+	// 判断并返回
+	switch str {
+	case "+0000":
+		return 0, nil
+	case "-0100":
+		return -1, nil
+	case "-0200":
+		return -2, nil
+	case "-0300":
+		return -3, nil
+	case "-0400":
+		return -4, nil
+	case "-0500":
+		return -5, nil
+	case "-0600":
+		return -6, nil
+	case "-0700":
+		return -7, nil
+	case "-0800":
+		return -8, nil
+	case "-0900":
+		return -9, nil
+	case "-1000":
+		return -10, nil
+	case "-1100":
+		return -11, nil
+	case "-1200":
+		fallthrough
+	case "+1200":
+		return 12, nil
+	case "+1100":
+		return 11, nil
+	case "+1000":
+		return 10, nil
+	case "+0900":
+		return 9, nil
+	case "+0800":
+		return 8, nil
+	case "+0700":
+		return 7, nil
+	case "+0600":
+		return 6, nil
+	case "+0500":
+		return 5, nil
+	case "+0400":
+		return 4, nil
+	case "+0300":
+		return 3, nil
+	case "+0200":
+		return 2, nil
+	case "+0100":
+		return 1, nil
+	default:
+		return 500, errors.New("undefined timezone! ")
 	}
 }
